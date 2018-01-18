@@ -13,15 +13,18 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import tw.com.shiaoshia.ex2018011701.data.Student;
+import tw.com.shiaoshia.ex2018011701.data.StudentFileDAO;
 import tw.com.shiaoshia.ex2018011701.data.StudentScoreDAO;
 
 public class MainActivity extends AppCompatActivity {
-    final public static StudentScoreDAO dao = new StudentScoreDAO();
+    //final public static StudentScoreDAO dao = new StudentScoreDAO();
+    public static StudentFileDAO dao;
     ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dao = new StudentFileDAO(this);
     }
 
     @Override
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         lv = (ListView)findViewById(R.id.listView);
         ArrayList<String> studentName = new ArrayList<>();
-        for(Student s : dao.mylist) {
+        for(Student s : dao.getList()) {
             studentName.add(s.name);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
