@@ -15,6 +15,7 @@ public class DetailActivity extends AppCompatActivity {
     Student s;
     TextView tv1,tv2,tv3;
     int id;
+    boolean fastBack = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,9 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(fastBack) {
+            finish();
+        }
         s = MainActivity.dao.getStudent(id);
         tv1.setText(Integer.valueOf(s.id).toString());
         tv2.setText(s.name);
@@ -62,6 +66,7 @@ public class DetailActivity extends AppCompatActivity {
     }
     //修改資料
     public void click03(View v) {
+        fastBack = true;
         Log.d("TestID:",tv1.getText().toString());
         Intent it = new Intent(DetailActivity.this,EditActivity.class);
         it.putExtra("ID",id);
