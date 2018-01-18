@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,10 +20,18 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         id = getIntent().getIntExtra("ID",0);
-        s = MainActivity.dao.getStudent(id);
+
         tv1 = (TextView)findViewById(R.id.textView);
         tv2 = (TextView)findViewById(R.id.textView2);
         tv3 = (TextView)findViewById(R.id.textView3);
+
+    }
+
+    //重抓資料
+    @Override
+    protected void onResume() {
+        super.onResume();
+        s = MainActivity.dao.getStudent(id);
         tv1.setText(Integer.valueOf(s.id).toString());
         tv2.setText(s.name);
         tv3.setText(Integer.valueOf(s.score).toString());
@@ -51,10 +60,11 @@ public class DetailActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
+    //修改資料
     public void click03(View v) {
-        Intent it2 = new Intent(DetailActivity.this,EditActivity.class);
-        it2.putExtra("ID2",tv1.getText().toString());
-        startActivity(it2);
+        Log.d("TestID:",tv1.getText().toString());
+        Intent it = new Intent(DetailActivity.this,EditActivity.class);
+        it.putExtra("ID",id);
+        startActivity(it);
     }
 }
