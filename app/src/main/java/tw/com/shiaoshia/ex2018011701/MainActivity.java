@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import tw.com.shiaoshia.ex2018011701.data.DBType;
 import tw.com.shiaoshia.ex2018011701.data.Student;
 import tw.com.shiaoshia.ex2018011701.data.StudentDAO;
 import tw.com.shiaoshia.ex2018011701.data.StudentDAOFactory;
@@ -22,14 +23,15 @@ public class MainActivity extends AppCompatActivity {
     //final public static StudentScoreDAO dao = new StudentScoreDAO();
     //public static StudentFileDAO dao;
     public static StudentDAO dao;
-    int dbType;
+    DBType dbType;
     ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //dao = new StudentFileDAO(this);
-        dbType = 2; //1.存取記憶體 2.存取檔案
+        //dbType = 2; //1.存取記憶體 2.存取檔案
+        dbType = DBType.FILE;
         dao = StudentDAOFactory.getDAOInstance(this,dbType);
 
     }
