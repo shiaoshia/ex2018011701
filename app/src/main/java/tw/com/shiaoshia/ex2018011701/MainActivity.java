@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //dao = new StudentFileDAO(this);
         //dbType = 2; //1.存取記憶體 2.存取檔案
-        dbType = DBType.FILE;
+        //dbType = DBType.FILE;
+        dbType = DBType.DB;
         dao = StudentDAOFactory.getDAOInstance(this,dbType);
 
     }
