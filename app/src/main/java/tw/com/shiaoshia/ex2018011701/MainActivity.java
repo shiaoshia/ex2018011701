@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         //dao = new StudentFileDAO(this);
         //dbType = 2; //1.存取記憶體 2.存取檔案
         //dbType = DBType.FILE;
-        dbType = DBType.DB;
+        //dbType = DBType.DB;
+        dbType = DBType.CLOUD;  //使用FireBase
         dao = StudentDAOFactory.getDAOInstance(this,dbType);
 
     }
