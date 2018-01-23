@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static StudentDAO dao;
     DBType dbType;
     ListView lv;
+    ArrayList<String> studentName;
+    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +37,9 @@ public class MainActivity extends AppCompatActivity {
         //dbType = DBType.DB;
         dbType = DBType.CLOUD;  //使用FireBase
         dao = StudentDAOFactory.getDAOInstance(this,dbType);
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         lv = (ListView)findViewById(R.id.listView);
-        ArrayList<String> studentName = new ArrayList<>();
-        for(Student s : dao.getList()) {
-            studentName.add(s.name);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+        studentName = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,studentName);
         lv.setAdapter(adapter);
 
@@ -59,6 +52,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    public void refreshData() { //更新資料
+        studentName.clear();
+        for(Student s : dao.getList()) {
+            studentName.add(s.name);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     //顯示Menu

@@ -19,6 +19,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import tw.com.shiaoshia.ex2018011701.MainActivity;
+
 /**
  * Created by USER-NB on 2018/1/18.
  */
@@ -28,7 +30,7 @@ public class StudentDAOCloudImpl implements StudentDAO{
     Context context;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    public StudentDAOCloudImpl(Context context)
+    public StudentDAOCloudImpl(final Context context)
     {
         this.context = context;
 
@@ -40,6 +42,7 @@ public class StudentDAOCloudImpl implements StudentDAO{
                 String value = dataSnapshot.getValue(String.class);
                 Gson gson = new Gson();
                 mylist = gson.fromJson(value,new TypeToken<ArrayList<Student>>(){}.getType());
+                ((MainActivity) context).refreshData();
             }
 
             @Override
