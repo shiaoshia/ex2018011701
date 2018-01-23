@@ -33,7 +33,7 @@ public class StudentDAOCloudImpl implements StudentDAO{
     public StudentDAOCloudImpl(final Context context)
     {
         this.context = context;
-
+        mylist = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("score");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -42,6 +42,9 @@ public class StudentDAOCloudImpl implements StudentDAO{
                 String value = dataSnapshot.getValue(String.class);
                 Gson gson = new Gson();
                 mylist = gson.fromJson(value,new TypeToken<ArrayList<Student>>(){}.getType());
+                if (mylist == null) {
+                    mylist = new ArrayList<>();
+                }
                 ((MainActivity) context).refreshData();
             }
 
@@ -50,9 +53,7 @@ public class StudentDAOCloudImpl implements StudentDAO{
 
             }
         });
-        if (mylist == null) {
-            mylist = new ArrayList<>();
-        }
+
     }
     private void saveFile() {   //儲存資料
         Gson gson = new Gson();
